@@ -1,5 +1,5 @@
 import Catalog from "../../features/catalog/catalog";
-import { Container, CssBaseline, ThemeProvider, Typography, createTheme } from "@mui/material";
+import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Header from "./Header";
 import { useState } from "react";
 
@@ -9,14 +9,21 @@ function App() {
   const paletteType = darkMode ? 'dark' : 'light';
   const theme = createTheme({
     palette:{
-      mode: paletteType
+      mode: paletteType,
+      background: {
+        default: paletteType === 'light' ? '#eaeaea' : '#121212'
+      }
     }
   })
+
+  function handleThemeChange(){
+    setDarkMode(!darkMode);
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
+      <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
       <Container>
         <Catalog/>
       </Container>
