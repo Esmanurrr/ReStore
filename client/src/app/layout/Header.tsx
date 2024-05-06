@@ -1,6 +1,7 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 const midLinks = [
     { title: 'catalog', path: '/catalog' },
@@ -42,10 +43,9 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
                     >
                         RE-STORE
                     </Typography>
-                    <Switch checked={darkMode} onChange={handleThemeChange} />
-                </Box>
-
-                <List sx={{ display: 'flex' }}>
+                    {/* <Switch checked={darkMode} onChange={handleThemeChange} /> */}
+                    <ThemeSwitch checked={darkMode} handleThemeChange={handleThemeChange}/>
+                    <List sx={{ display: 'flex' }}>
                     {midLinks.map(({ title, path }) => (
                         <ListItem
                             component={NavLink}
@@ -56,7 +56,10 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
                             {title.toUpperCase()}
                         </ListItem>
                     ))}
-                </List>
+                    </List>
+                </Box>
+
+
 
                 <Box display= 'flex' alignItems="center">
                     <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
