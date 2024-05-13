@@ -1,5 +1,4 @@
-import Catalog from "../../features/catalog/catalog";
-import { Container, CssBaseline, Switch, ThemeProvider, createTheme, styled } from "@mui/material";
+import { Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Header from "./Header";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
