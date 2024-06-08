@@ -3,26 +3,27 @@ import { Product } from "../../app/models/product";
 import agent from "../../app/api/agent";
 import { RootState } from "../../app/store/configureStore";
 
+
 const productsAdapter = createEntityAdapter<Product>();
 
 export const fetchProductsAsync = createAsyncThunk<Product[]>(
     'catalog/fetchProductsAsync',
-    async () => {
+    async (_, thunkAPI) => {
         try {
             return await agent.Catalog.list();
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue({error: error.data});
         }
     }
 )
 
 export const fetchProductAsync = createAsyncThunk<Product, number>(
     'catalog/fetchProductAsync',
-    async (productId) => {
+    async (productId, thunkAPI) => {
         try {
             return await agent.Catalog.details(productId);
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue({error: error.data});
         }
     }
 )
