@@ -17,7 +17,10 @@ builder.Services.AddDbContext<StoreContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"));
 });
 builder.Services.AddCors();
-builder.Services.AddIdentityCore<User>()
+builder.Services.AddIdentityCore<User>(opt =>
+{
+    opt.User.RequireUniqueEmail = true;
+})
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StoreContext>();
 
