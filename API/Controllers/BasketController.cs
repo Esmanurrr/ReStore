@@ -1,5 +1,4 @@
 ﻿using API.Data;
-using API.Data.Migrations;
 using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
