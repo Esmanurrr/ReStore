@@ -1,18 +1,17 @@
 import { Box, Button, Paper, Step, StepLabel, Stepper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import AddressForm from "./AddressForm";
-import Review from "./Review";
-import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchema } from "./checkoutValidation";
 import PaymentForm from "./PaymentForm";
-import agent from "../../app/api/agent";
-import { useAppDispatch } from "../../app/store/configureStore";
-import { clearBasket } from "../basket/basketSlice";
-import { LoadingButton } from "@mui/lab";
+import Review from "./Review";
+import { useForm, FieldValues, FormProvider } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validationSchema } from './checkoutValidation';
+import { useAppDispatch } from '../../app/store/configureStore';
+import agent from '../../app/api/agent';
+import { clearBasket } from '../basket/basketSlice';
+import { LoadingButton } from '@mui/lab';
 
 const steps = ['Shipping address', 'Review your order', 'Payment details'];
-
 
 function getStepContent(step: number) {
     switch (step) {
@@ -43,12 +42,11 @@ export default function CheckoutPage() {
     useEffect(() => {
         agent.Account.fetchAddress()
             .then(response => {
-                if(response) {
+                if (response) {
                     methods.reset({...methods.getValues(), ...response, saveAddress: false})
                 }
             })
-    },[methods])
-
+    }, [methods])
 
     const handleNext = async (data: FieldValues) => {
         const {nameOnCard, saveAddress, ...shippingAddress} = data;
@@ -124,6 +122,3 @@ export default function CheckoutPage() {
         </FormProvider>
     );
 }
-
-
-
