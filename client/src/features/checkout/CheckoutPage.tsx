@@ -2,10 +2,10 @@ import { Box, Button, Paper, Step, StepLabel, Stepper, Typography } from "@mui/m
 import { useState } from "react";
 import AddressForm from "./AddressForm";
 import Review from "./Review";
-import { FormProvider, useForm } from "react-hook-form";
-import PaymentForm from "./PaymentForm";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./checkoutValidation";
+import PaymentForm from "./PaymentForm";
 
 const steps = ['Shipping address', 'Review your order', 'Payment details'];
 
@@ -17,20 +17,26 @@ function getStepContent(step: number) {
         case 1:
             return <Review />;
         case 2:
-            return <PaymentForm />;
+            return <PaymentForm cardState={cardState} onCardInputChange={onCardInputChange} />;
         default:
             throw new Error('Unknown step');
     }
 }
 
 export default function CheckoutPage() {
-    const methods = useForm({
-        mode:'all',
-        resolver: yupResolver(validationSchema)
-    });
     const [activeStep, setActiveStep] = useState(0);
 
-    const handleNext = () => {
+    const currentValidationSchema = validationSchema[activeStep];
+
+    const methods = useForm({
+        mode:'all',
+        resolver: yupResolver(currentValidationSchema)
+    });
+
+    const handleNext = (data: FieldValues) => {
+        if(activeStep === 2){
+            console.log(data);
+        }
         setActiveStep(activeStep + 1);
     };
 
